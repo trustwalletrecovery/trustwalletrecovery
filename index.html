@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Recovery Support</title>
+    <title>Crypto Recovery</title>
 
     <!-- Quicksand Font -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
@@ -26,17 +26,23 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         header h1 {
             color: #38bdf8;
         }
 
+        nav {
+            margin-top: 10px;
+        }
+
         nav a {
-            margin-left: 20px;
+            margin-left: 15px;
             text-decoration: none;
             color: #cbd5f5;
             transition: 0.3s;
+            font-size: 14px;
         }
 
         nav a:hover {
@@ -44,48 +50,66 @@
         }
 
         .hero {
-            padding: 100px 10%;
+            padding: 80px 10%;
             text-align: center;
         }
 
         .hero h2 {
-            font-size: 42px;
+            font-size: 36px;
             margin-bottom: 20px;
         }
 
         .hero p {
             color: #94a3b8;
             margin-bottom: 30px;
+            font-size: 16px;
         }
 
-        .btn {
-            padding: 12px 25px;
+        .input-group {
+            display: flex;
+            justify-content: center;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            outline: none;
+            border-radius: 8px 0 0 8px;
+            background: #1e293b;
+            color: #e2e8f0;
+        }
+
+        .input-group button {
+            padding: 12px 20px;
             border: none;
             background: #38bdf8;
             color: #0f172a;
             font-weight: 600;
-            border-radius: 8px;
             cursor: pointer;
+            border-radius: 0 8px 8px 0;
             transition: 0.3s;
         }
 
-        .btn:hover {
+        .input-group button:hover {
             background: #0ea5e9;
         }
 
         .section {
-            padding: 80px 10%;
+            padding: 60px 10%;
         }
 
         .cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
 
         .card {
             background: #1e293b;
-            padding: 25px;
+            padding: 20px;
             border-radius: 12px;
             transition: 0.3s;
         }
@@ -99,11 +123,44 @@
             color: #38bdf8;
         }
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #64748b;
-            border-top: 1px solid #1e293b;
+        /* Tablet */
+        @media (max-width: 900px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero h2 {
+                font-size: 28px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav a {
+                margin: 0 8px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            .input-group input {
+                border-radius: 8px;
+                margin-bottom: 10px;
+            }
+
+            .input-group button {
+                border-radius: 8px;
+            }
         }
     </style>
 </head>
@@ -121,14 +178,16 @@
 </header>
 
 <section class="hero">
-    <h2>Kayıp Kripto Varlıklarınız İçin Bilgilendirme</h2>
-    <p>Trust Wallet ve diğer cüzdanlarda yaşanan kayıplar hakkında rehberlik ve güvenli öneriler sunuyoruz.</p>
-    <button class="btn">Bilgi Al</button>
+    <h2>Kayıp Kripto Varlıklarınızı Kontrol Edin</h2>
+    <p>Cüzdan adresinizi girerek işlem geçmişinizi analiz edin.</p>
+
+    <div class="input-group">
+        <input type="text" placeholder="Cüzdan adresinizi girin...">
+        <button>Kontrol Et</button>
+    </div>
 </section>
 
 <section class="section">
-    <h2 style="text-align:center; margin-bottom:40px;">Ne Yapabilirsiniz?</h2>
-
     <div class="cards">
         <div class="card">
             <h3>Güvenlik Analizi</h3>
@@ -142,22 +201,10 @@
 
         <div class="card">
             <h3>Doğru Adımlar</h3>
-            <p>Kaybınız sonrası atmanız gereken resmi ve güvenli adımlar.</p>
+            <p>Kaybınız sonrası atmanız gereken güvenli adımlar.</p>
         </div>
     </div>
 </section>
-
-<section class="section">
-    <h2 style="text-align:center; margin-bottom:20px;">Önemli Uyarı</h2>
-    <p style="text-align:center; max-width:700px; margin:auto; color:#94a3b8;">
-        Kripto varlıkların geri alınması çoğu durumda teknik olarak mümkün değildir.
-        Bu site, kullanıcıları bilinçlendirme amacıyla hazırlanmıştır ve garanti sunmaz.
-    </p>
-</section>
-
-<footer>
-    © 2026 CryptoRecovery | Bilgilendirme Amaçlıdır
-</footer>
 
 </body>
 </html>
