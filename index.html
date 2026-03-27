@@ -19,38 +19,27 @@
         body {
             background-color: #0f172a;
             color: #e2e8f0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         header {
             padding: 20px 10%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
+            text-align: center;
         }
 
         header h1 {
             color: #38bdf8;
         }
 
-        nav {
-            margin-top: 10px;
-        }
-
-        nav a {
-            margin-left: 15px;
-            text-decoration: none;
-            color: #cbd5f5;
-            transition: 0.3s;
-            font-size: 14px;
-        }
-
-        nav a:hover {
-            color: #38bdf8;
-        }
-
         .hero {
-            padding: 80px 10%;
+            flex: 1;
+            padding: 60px 10%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
         }
 
@@ -62,19 +51,17 @@
         .hero p {
             color: #94a3b8;
             margin-bottom: 30px;
-            font-size: 16px;
         }
 
         .input-group {
             display: flex;
-            justify-content: center;
             max-width: 600px;
-            margin: auto;
+            width: 100%;
         }
 
         .input-group input {
             flex: 1;
-            padding: 12px;
+            padding: 14px;
             border: none;
             outline: none;
             border-radius: 8px 0 0 8px;
@@ -83,7 +70,7 @@
         }
 
         .input-group button {
-            padding: 12px 20px;
+            padding: 14px 20px;
             border: none;
             background: #38bdf8;
             color: #0f172a;
@@ -123,6 +110,43 @@
             color: #38bdf8;
         }
 
+        /* Notification */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        .notification {
+            background: #1e293b;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            color: #e2e8f0;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease;
+        }
+
+        .notification.success {
+            border-left: 4px solid #22c55e;
+        }
+
+        .notification.error {
+            border-left: 4px solid #ef4444;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         /* Tablet */
         @media (max-width: 900px) {
             .cards {
@@ -136,15 +160,6 @@
 
         /* Mobile */
         @media (max-width: 600px) {
-            header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            nav a {
-                margin: 0 8px;
-            }
-
             .cards {
                 grid-template-columns: 1fr;
             }
@@ -167,23 +182,19 @@
 
 <body>
 
+<div class="notification-container" id="notificationContainer"></div>
+
 <header>
     <h1>CryptoRecovery</h1>
-    <nav>
-        <a href="#">Ana Sayfa</a>
-        <a href="#">Hizmetler</a>
-        <a href="#">Hakkımızda</a>
-        <a href="#">İletişim</a>
-    </nav>
 </header>
 
 <section class="hero">
     <h2>Kayıp Kripto Varlıklarınızı Kontrol Edin</h2>
-    <p>Cüzdan adresinizi girerek işlem geçmişinizi analiz edin.</p>
+    <p>Cüzdan adresinizi girerek analiz başlatın.</p>
 
     <div class="input-group">
-        <input type="text" placeholder="Cüzdan adresinizi girin...">
-        <button>Kontrol Et</button>
+        <input type="text" id="walletInput" placeholder="BNB (BEP20) adresinizi girin...">
+        <button onclick="checkWallet()">Kontrol Et</button>
     </div>
 </section>
 
@@ -191,20 +202,56 @@
     <div class="cards">
         <div class="card">
             <h3>Güvenlik Analizi</h3>
-            <p>Cüzdan güvenliğinizi kontrol edin ve olası açıkları öğrenin.</p>
+            <p>Cüzdan güvenliğinizi kontrol edin.</p>
         </div>
 
         <div class="card">
             <h3>Dolandırıcılık Tespiti</h3>
-            <p>Şüpheli işlemleri ve scam yöntemlerini analiz edin.</p>
+            <p>Şüpheli işlemleri analiz edin.</p>
         </div>
 
         <div class="card">
             <h3>Doğru Adımlar</h3>
-            <p>Kaybınız sonrası atmanız gereken güvenli adımlar.</p>
+            <p>Güvenli aksiyonlar alın.</p>
         </div>
     </div>
 </section>
+
+<script>
+function showNotification(message, type) {
+    const container = document.getElementById("notificationContainer");
+
+    const notif = document.createElement("div");
+    notif.className = "notification " + type;
+    notif.innerText = message;
+
+    container.appendChild(notif);
+
+    setTimeout(() => {
+        notif.remove();
+    }, 3000);
+}
+
+function isValidBNB(address) {
+    return /^0x[a-fA-F0-9]{40}$/.test(address);
+}
+
+function checkWallet() {
+    const input = document.getElementById("walletInput").value.trim();
+
+    if (input === "") {
+        showNotification("Lütfen bir adres girin.", "error");
+        return;
+    }
+
+    if (!isValidBNB(input)) {
+        showNotification("Geçersiz BNB adresi.", "error");
+        return;
+    }
+
+    showNotification("Adres formatı geçerli ✔", "success");
+}
+</script>
 
 </body>
 </html>
